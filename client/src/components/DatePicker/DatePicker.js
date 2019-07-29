@@ -49,9 +49,6 @@ export default compose(
     handleDateChange: (state, props) => (date) => {
       state.handleRecalculatingMinTime(date);
       state.onDatePick(date);
-      //////////////////добавляти до часу години
-      // console.log(state.minTime);
-      // console.log({ date });
     },
   }),
 )(DatePickerView);

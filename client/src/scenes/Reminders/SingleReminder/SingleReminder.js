@@ -40,9 +40,6 @@ export default compose(
         reminderClicked: true,
         editedText: props.reminder.text,
       }),
-      // handleMouseEnter: (state, props) => () => ({ hovered: true }),
-      // handleMouseLeave: (state, props) => () => ({ hovered: false }),
-
       editReminderHandler: (state, props) => () => {
         const regexp = /([a-zA-Zа-яА-Я\d]+ ){2}[a-zA-Zа-яА-Я\d]+/;
 

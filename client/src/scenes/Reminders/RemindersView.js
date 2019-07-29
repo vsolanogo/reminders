@@ -17,9 +17,6 @@ export default function({ reminders }) {
 
   sortedReminders.forEach((i) => {
     const { reminderExpiration } = i;
-    // const reminderExpirationDay = moment(reminderExpiration).format(
-    //   'DD MM YYYY',
-    // );
 
     const reminderExpirationDay = moment
       .unix(reminderExpiration / 1000)

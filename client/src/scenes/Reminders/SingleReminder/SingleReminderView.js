@@ -3,12 +3,9 @@ import styled from 'styled-components';
 import * as moment from 'moment';
 
 const SingleReminder = styled.div`
-  position: relative;
   display: flex;
-  flex-direction: row;
-  transition: 0.2s;
   align-items: stretch;
-  width: 100%;
+  transition: 0.2s;
   :hover {
     background: #e7e9ed;
   }
@@ -22,7 +19,15 @@ const TextEditField = styled.input.attrs({
   font-family: 'Helvetica Neue', Helvetica, Arial;
   border: 1px solid #999999;
   outline: none;
-  height: 95%;
+  flex: 1;
+`;
+
+const ReminderText = styled.div`
+  font-size: 22px;
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+  padding: 5px;
+  cursor: pointer;
+  flex: 1;
 `;
 
 const DeleteButton = styled.div`
@@ -34,6 +39,7 @@ const DeleteButton = styled.div`
   border: 0;
   outline: none;
   transition: 0.2s;
+  align-self: flex-end;
   :hover {
     color: red;
   }
@@ -46,13 +52,6 @@ const ReminderTime = styled.div`
   padding: 5px;
 `;
 
-const ReminderText = styled.div`
-  font-size: 22px;
-  font-family: 'Helvetica Neue', Helvetica, Arial;
-  padding: 5px;
-  cursor: pointer;
-`;
-
 export default function({
   reminder,
   deleteThisReminderHandler,
@@ -62,31 +61,29 @@ export default function({
   handleEditText,
   editReminderHandler,
 }) {
-  // const time = moment(reminder.reminderExpiration).format('HH:mm');
   const time = moment
     .unix(reminder.reminderExpiration / 1000)
     .format('HH:mm');
   return (
     <SingleReminder>
       <ReminderTime>{time}</ReminderTime>
-      {'  '}
-      <div onClick={handleToggleText}>
-        {!reminderClicked && (
-          <ReminderText>{reminder.text}</ReminderText>
-        )}
-        {reminderClicked && (
-          <TextEditField
-            value={editedText}
-            onChange={handleEditText}
-            onBlur={editReminderHandler}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                editReminderHandler();
-              }
-            }}
-          />
-        )}
-      </div>
+      {!reminderClicked && (
+        <ReminderText onClick={handleToggleText}>
+          {reminder.text}
+        </ReminderText>
+      )}
+      {reminderClicked && (
+        <TextEditField
+          value={editedText}
+          onChange={handleEditText}
+          onBlur={editReminderHandler}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              editReminderHandler();
+            }
+          }}
+        />
+      )}
 
       {!reminderClicked && (
         <DeleteButton onClick={deleteThisReminderHandler}>
